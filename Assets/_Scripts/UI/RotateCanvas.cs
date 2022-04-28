@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Aezakmi
+namespace Aezakmi.UI
 {
     public class RotateCanvas : MonoBehaviour
     {

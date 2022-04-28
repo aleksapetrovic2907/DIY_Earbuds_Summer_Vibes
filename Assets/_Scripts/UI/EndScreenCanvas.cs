@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Aezakmi
+namespace Aezakmi.UI
 {
     public class EndScreenCanvas : MonoBehaviour
     {

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Aezakmi.Tweens;
 using DG.Tweening;
 
-namespace Aezakmi
+namespace Aezakmi.UI
 {
     public class DopamineCanvas : MonoBehaviour
     {
