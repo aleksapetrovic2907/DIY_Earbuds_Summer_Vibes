@@ -12,7 +12,8 @@ namespace Aezakmi.Tweens
             _tweener = transform
                 .DOMove(transform.position + _moveAmount, _loopDuration)
                 .SetLoops(_loopCount, _loopType)
-                .SetEase(_loopEase);
+                .SetEase(_loopEase)
+                .SetDelay(_delay);
         }
     }
 }

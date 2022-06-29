@@ -1,14 +1,23 @@
 using UnityEngine;
 using Aezakmi.PaintMechanics;
+using PaintIn3D;
 
 namespace Aezakmi.UI
 {
     public class InstructionsManager : MonoBehaviour
     {
+        public static InstructionsManager current;
+
+        private void Awake()
+        {
+            if (current != this)
+                current = this;
+        }
+
         [SerializeField] private GameObject _swipeToSprinkleCase;
 
         [Space(20)]
-        [SerializeField] private Painter _painterSpray;
+        [SerializeField] private P3dHitScreen _painterSpray;
         [SerializeField] private GameObject _swipeToRotateCase;
 
         [SerializeField] private GameObject _swipeToDraw;
@@ -17,7 +26,13 @@ namespace Aezakmi.UI
         [SerializeField] private GameObject _swipeToMoveCase;
         [SerializeField] private GameObject _tapToRestart;
 
+        // TEMPORARY
+        [SerializeField] private GameObject _plane;
+
+        // TEMPORARY
+
         private bool flag = false;
+        public bool hasStartedPainting = false;
 
         private void Start()
         {
@@ -28,13 +43,13 @@ namespace Aezakmi.UI
             EventManager.current.onCaseStickerComplete += delegate { TurnOffAll(); _swipeToOpenCase.SetActive(true); };
             EventManager.current.onCaseOpened += delegate { TurnOffAll(); _swipeToMoveCase.SetActive(true); };
             EventManager.current.onStartEarbudsSpray += delegate { TurnOffAll(); _swipeToRotateCase.SetActive(true); };
-            EventManager.current.onGameFinished += delegate { TurnOffAll(); _tapToRestart.SetActive(true); };
+            EventManager.current.onGameFinished += delegate { TurnOffAll(); _tapToRestart.SetActive(true); }; 
             EventManager.current.onShowEndScreen += delegate { TurnOffAll(); };
         }
 
         private void Update()
         {
-            if (!flag && _painterSpray.StartedPaint)
+            if (!flag && hasStartedPainting)
             {
                 flag = true;
                 Invoke("ShowRotateCase", 1f);

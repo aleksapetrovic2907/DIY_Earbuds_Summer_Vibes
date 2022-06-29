@@ -4,7 +4,7 @@ using Aezakmi.PaintMechanics;
 
 namespace Aezakmi.UI
 {
-    public class ColorsCanvas : MonoBehaviour
+    public class ColorsCanvas : GloballyAccessibleBase<ColorsCanvas>
     {
         [SerializeField] private GameObject _spraysScrollView;
         [SerializeField] private GameObject _markersScrollView;
@@ -74,6 +74,24 @@ namespace Aezakmi.UI
                 instanceRect.anchoredPosition = new Vector2(instanceRect.anchoredPosition.x + instanceRect.sizeDelta.x * i, instanceRect.anchoredPosition.y);
 
                 instance.GetComponent<Image>().sprite = StickerPalette.current.stickers[i];
+            }
+        }
+
+        public void RemoveOutlines()
+        {
+            foreach (Transform item in _containerSprays.transform)
+            {
+                item.gameObject.GetComponent<ItemColorer>().RemoveOutline();         
+            }
+
+            foreach (Transform item in _containerMarkers.transform)
+            {
+                item.gameObject.GetComponent<ItemColorer>().RemoveOutline();         
+            }
+
+            foreach (Transform item in _containerSilicones.transform)
+            {
+                item.gameObject.GetComponent<ItemColorer>().RemoveOutline();         
             }
         }
     }

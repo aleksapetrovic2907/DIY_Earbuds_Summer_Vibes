@@ -14,7 +14,7 @@ namespace Aezakmi
         private void Start()
         {
             _particleSystem = GetComponent<ParticleSystem>();
-            EventManager.current.onGameFinished += Burst;
+            EventManager.current.onGameFinished += delegate { Invoke("Burst", 0.6f); };
             EventManager.current.onShowEndScreen += delegate { Destroy(gameObject); };
         }
 

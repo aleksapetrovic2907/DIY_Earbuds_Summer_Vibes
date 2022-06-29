@@ -8,9 +8,9 @@ namespace Aezakmi
     public class SiliconeManager : MonoBehaviour
     {
         [SerializeField] private Material _siliconeMaterial;
-        
-        [SerializeField] private SiliconeAnimation _leftSiliconeReturn;
-        [SerializeField] private SiliconeAnimation _rightSiliconeReturn;
+
+        private SiliconeAnimation _leftSiliconeReturn;
+        private SiliconeAnimation _rightSiliconeReturn;
 
         private void Start()
         {
@@ -21,15 +21,18 @@ namespace Aezakmi
         private void ChangeMaterialColor(int index)
         {
             _siliconeMaterial.SetColor("_Color", ColorPalette.SelectedSiliconeColor);
+
+            ReferenceManager.Instance.CurrentEarbudLeftSilicone.GetComponent<Scale>().PlayTween();
+            ReferenceManager.Instance.CurrentEarbudRightSilicone.GetComponent<Scale>().PlayTween();
         }
 
         private void MoveSiliconeBack()
         {
-            _leftSiliconeReturn.gameObject.SetActive(true);
-            _rightSiliconeReturn.gameObject.SetActive(true);
+            ReferenceManager.Instance.CurrentEarbudLeftSilicone.SetActive(true);
+            ReferenceManager.Instance.CurrentEarbudRightSilicone.SetActive(true);
 
-            _leftSiliconeReturn._tweener.PlayBackwards();
-            _rightSiliconeReturn._tweener.PlayBackwards();
+            ReferenceManager.Instance.CurrentEarbudLeftSilicone.GetComponent<SiliconeAnimation>()._tweener.PlayBackwards();
+            ReferenceManager.Instance.CurrentEarbudRightSilicone.GetComponent<SiliconeAnimation>()._tweener.PlayBackwards();
         }
 
 

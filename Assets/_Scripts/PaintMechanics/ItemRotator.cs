@@ -6,9 +6,9 @@ namespace Aezakmi
 {
     public class ItemRotator : MonoBehaviour
     {
-        [SerializeField] private GameObject _caseParent;
-        [SerializeField] private GameObject _earbudRight;
-        [SerializeField] private GameObject _earbudLeft;
+        private GameObject _caseParent;
+        private GameObject _earbudRight;
+        private GameObject _earbudLeft;
         [SerializeField] private float _rotateSpeed;
 
 
@@ -45,11 +45,11 @@ namespace Aezakmi
                                             || GameManager.current.CurrentStep == Step.CaseMarker
                                             || GameManager.current.CurrentStep == Step.CaseSticker);
 
-                    if (IsCaseCurrentStep) Rotate(_caseParent, 1);
+                    if (IsCaseCurrentStep) Rotate(ReferenceManager.Instance.CurrentCase.gameObject, 1);
                     else
                     {
-                        Rotate(_earbudLeft, 1);
-                        Rotate(_earbudRight, -1);
+                        Rotate(ReferenceManager.Instance.CurrentEarbudLeft, 1);
+                        Rotate(ReferenceManager.Instance.CurrentEarbudRight, -1);
                     }
                 }
             }

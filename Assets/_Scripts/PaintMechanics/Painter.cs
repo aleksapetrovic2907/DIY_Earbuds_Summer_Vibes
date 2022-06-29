@@ -108,7 +108,7 @@ namespace Aezakmi.PaintMechanics
 
         private void PlayEffects(RaycastHit hit)
         {
-            _cursor.UpdateTarget(hit);
+            // _cursor.UpdateTarget(hit);
             // // Vibration.Vibrate(10000, -1, false);
 
             if (_cursorParticleSystem != null)

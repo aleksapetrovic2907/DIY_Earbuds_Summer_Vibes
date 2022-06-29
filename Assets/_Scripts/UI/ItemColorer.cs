@@ -7,6 +7,7 @@ namespace Aezakmi.UI
     public class ItemColorer : MonoBehaviour
     {
         [SerializeField] private Image _coloredPart;
+        [SerializeField] private GameObject _outline;
 
         private int _index;
 
@@ -24,6 +25,17 @@ namespace Aezakmi.UI
         public void SelectSiliconeColor()
         {
             ColorPalette.current.SetSiliconeColor(_index);
+        }
+
+        public void OnClick()
+        {
+            ColorsCanvas.Instance.RemoveOutlines();
+            _outline.SetActive(true);
+        }
+
+        public void RemoveOutline()
+        {
+            _outline.SetActive(false);
         }
     }
 }

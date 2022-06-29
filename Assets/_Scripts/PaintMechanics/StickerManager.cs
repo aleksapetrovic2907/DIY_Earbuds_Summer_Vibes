@@ -52,22 +52,11 @@ namespace Aezakmi.PaintMechanics
 
                 if (HitTestUVPosition(ref uvWorldPosition))
                 {
-
-                    if (brushObject != null) Destroy(brushObject);
-
-                    brushObject = Instantiate(_brushEntity); // Paint a brush
-                    brushObject.GetComponent<SpriteRenderer>().sprite = _guide.GetComponent<Image>().sprite;
-                    brushObject.GetComponent<Renderer>().sortingOrder = _stickersPlaced + 1;
-
-                    brushObject.transform.parent = _currentPaintable.StickerContainer.transform; // Add the brush to our container to be wiped later
-                    brushObject.transform.localPosition = uvWorldPosition; // The position of the brush (in the UVMap)
-
                     _guide.SetActive(false);
                 }
                 else
                 {
                     _guide.SetActive(true);
-                    if (brushObject != null) Destroy(brushObject);
                 }
             }
             else
@@ -81,22 +70,6 @@ namespace Aezakmi.PaintMechanics
 
                 Vector3 uvWorldPosition = Vector3.zero;
 
-                if (HitTestUVPosition(ref uvWorldPosition))
-                {
-
-                    if (brushObject != null) Destroy(brushObject);
-
-                    brushObject = Instantiate(_brushEntity); // Paint a brush
-                    brushObject.GetComponent<SpriteRenderer>().sprite = _guide.GetComponent<Image>().sprite;
-
-                    brushObject.GetComponent<Renderer>().sortingOrder = ++_stickersPlaced;
-
-                    brushObject.transform.parent = _currentPaintable.StickerContainer.transform; // Add the brush to our container to be wiped later
-                    brushObject.transform.localPosition = uvWorldPosition; // The position of the brush (in the UVMap)
-
-                    brushObject = null;
-                }
-
                 Destroy(_guide.gameObject);
             }
         }
@@ -107,7 +80,7 @@ namespace Aezakmi.PaintMechanics
             _guide = Instantiate(_stickerGuide, InputManager.current.Touch.position, Quaternion.identity, _stickerGuideCanvas.transform);
             _guide.GetComponent<Image>().sprite = obj.GetComponent<Image>().sprite;
 
-
+            StickerPalette.current.ChangeSprite(obj.GetComponent<Image>().sprite);
             if(!flag)
             {
                 flag = true;
@@ -125,14 +98,6 @@ namespace Aezakmi.PaintMechanics
                 MeshCollider meshCollider = hit.collider as MeshCollider;
                 if (meshCollider == null || meshCollider.sharedMesh == null || meshCollider.gameObject.tag != "Paintable")
                     return false;
-
-                _currentPaintable = hit.collider.gameObject.GetComponent<Paintable>();
-                var canvasCam = _currentPaintable.CanvasCamera;
-
-                Vector2 pixelUV = new Vector2(hit.textureCoord.x, hit.textureCoord.y);
-                uvWorldPosition.x = pixelUV.x - canvasCam.orthographicSize; //To center the UV on X
-                uvWorldPosition.y = pixelUV.y - canvasCam.orthographicSize; //To center the UV on Y
-                uvWorldPosition.z = 0.0f;
 
                 return true;
             }

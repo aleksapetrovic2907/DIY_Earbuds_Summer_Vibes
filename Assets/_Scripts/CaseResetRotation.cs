@@ -4,6 +4,8 @@ namespace Aezakmi
 {
     public class CaseResetRotation : MonoBehaviour
     {
+        [SerializeField] private Vector3 _defaultRotation;
+
         private void Start()
         {
             EventManager.current.onCaseStickerComplete += ResetRotation;
@@ -11,7 +13,7 @@ namespace Aezakmi
 
         private void ResetRotation()
         {
-            transform.rotation = Quaternion.identity;
+            transform.eulerAngles = _defaultRotation;
         }
     }
 }

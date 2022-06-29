@@ -16,6 +16,7 @@ namespace Aezakmi
                 current = this;
 
             Application.targetFrameRate = 90;
+
         }
 
         public Step CurrentStep = Step.None;
@@ -23,7 +24,7 @@ namespace Aezakmi
         private void Start()
         {
             EventManager.current.onStartEarbudsSpray += delegate { CurrentStep = Step.EarbudsSpray; };
-            EventManager.current.onGameFinished += delegate { CurrentStep = Step.Finished; };
+            EventManager.current.onGameFinished += delegate { CurrentStep = Step.Finished; GlobalData.roundsCount++; };
         }
 
         private void Update()
